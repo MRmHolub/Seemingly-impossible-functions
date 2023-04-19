@@ -8,9 +8,10 @@
 (defun for-some (p)
   (funcall p (c-find p)))
 
+(defun for-each (p)
+  (not (for-some (lambda (x) (not (funcall p x))))))
 
-(defun eval-lazy-seq (lazy-seq i)  
-  (my-nth (funcall lazy-seq) i))
+
 
 #|
 POSSIBLE SCENARIOS
@@ -29,12 +30,18 @@ If it is not function it must be a part of the already enumerated sequence (mean
 
 
 |#
+
+
 (defun my-nth (seq i)
   (format t "New function call for function my-nth ~a ~a" seq i)  
   (cond ((functionp seq) (eval-lazy-seq seq i)) ;If it is not a function then it is partly computed seq
         ((= i 0) (car seq))
         ((functionp (cdr seq)) (eval-lazy-seq (cdr seq) (- i 1))) 
         (t (my-nth (cdr seq) (- i 1)))))
+
+
+(defun eval-lazy-seq (lazy-seq i)  
+  (my-nth (funcall lazy-seq) i))
 
 
 ;(for-some (lambda (x) (and (= (my-nth x 5) 0) (= (my-nth x 5) 1))))
