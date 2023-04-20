@@ -23,9 +23,13 @@ def at_index(seq, i):
     else:
         return at_index(seq[1], i-1)
     
-def equal(pred_a, pred_b):
+def equals(pred_a, pred_b):
     return not forsome(lambda x: pred_a(x) != pred_b(x))
-    
+
 #print(forsome(lambda seq: seq[4] == 0 and seq[2] == 0 and seq[3] > seq[0]))
 #would be rewritten like
 print(forsome(lambda seq: at_index(seq,4) == 0 and at_index(seq,2) == 0 and at_index(seq,3) > at_index(seq,0)))
+
+#Should implement also for other values 
+
+print(equals(lambda seq: at_index(seq, 0) == 0, lambda seq: at_index(seq, 0) != 1))
