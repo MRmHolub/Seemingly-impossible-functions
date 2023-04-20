@@ -12,6 +12,8 @@
   (not (for-some (lambda (x) (not (funcall p x))))))
 
 
+(defun are-same (f1 f2)
+  (not (forsome (lambda (x) (/= (funcall f1 x) (funcall f2 x)))))
 
 #|
 POSSIBLE SCENARIOS
